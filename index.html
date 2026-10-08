@@ -51,17 +51,10 @@
 <body class="bg-stone-50 text-stone-800 dark:bg-stone-950 dark:text-stone-200 font-texte antialiased"
       x-data="{
         dark: document.documentElement.classList.contains('dark'),
-        filter: 'all',
-        tags: ['SQL', 'Excel', 'C', 'UML'],
         toggleTheme() {
           this.dark = !this.dark;
           document.documentElement.classList.toggle('dark', this.dark);
           try { localStorage.setItem('theme', this.dark ? 'dark' : 'light'); } catch (e) {}
-        },
-        btn(t) {
-          return this.filter === t
-            ? 'bg-acc text-white border-acc dark:bg-acc-dark dark:text-stone-950 dark:border-acc-dark'
-            : 'border-stone-300 text-stone-700 hover:border-acc hover:text-acc dark:border-stone-700 dark:text-stone-300 dark:hover:border-acc-dark dark:hover:text-acc-dark';
         }
       }">
 
@@ -97,32 +90,13 @@
     <section class="mt-20" aria-labelledby="projets">
       <h2 id="projets" class="font-titre text-2xl font-bold text-dom dark:text-dom-dark">Projets</h2>
 
-      <!-- Filtres : invisibles sans JavaScript, car sans effet -->
-      <div x-cloak class="mt-5 flex flex-wrap gap-2" role="group" aria-label="Filtrer par technologie">
-        <button type="button" @click="filter = 'all'" :aria-pressed="filter === 'all'"
-                class="rounded-full border px-4 py-1.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:focus-visible:ring-acc-dark"
-                :class="btn('all')">Tout afficher</button>
-        <template x-for="t in tags" :key="t">
-          <button type="button" @click="filter = t" :aria-pressed="filter === t"
-                  class="rounded-full border px-4 py-1.5 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:focus-visible:ring-acc-dark"
-                  :class="btn(t)" x-text="t"></button>
-        </template>
-      </div>
-
-      <!-- Sans JavaScript : toutes les cartes et tous les détails sont affichés -->
       <div class="mt-8 grid items-start gap-6 md:grid-cols-2">
 
-        <article data-tags="SQL Excel" x-data="{ open: false }"
-                 x-show="filter === 'all' || $el.dataset.tags.split(' ').includes(filter)"
-                 @click="open = !open" x-bind:style="'cursor:pointer'"
-                 class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+        <article class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
           <h3 class="font-titre text-xl font-bold">Clear DATA</h3>
           <p class="mt-2 text-stone-600 dark:text-stone-400">Base de données SQL pour suivre les gaz atmosphériques (CH4 et HFC) dans les régions françaises.</p>
           <p class="mt-3 text-sm text-stone-500">SQL · Excel</p>
-          <button x-cloak type="button" :aria-expanded="open" aria-controls="d1"
-                  class="mt-4 text-sm font-semibold text-acc underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:text-acc-dark dark:focus-visible:ring-acc-dark"
-                  x-text="open ? 'Masquer le détail' : 'Voir le détail'">Voir le détail</button>
-          <div id="d1" x-show="open" class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
+          <div class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
             <p>Le schéma relie les capteurs, les mesures, les agences et les rapports, avec des tables de jonction.</p>
             <ul class="mt-3 list-disc space-y-1 pl-5">
               <li>Requêtes avec GROUP BY et fonctions de fenêtre.</li>
@@ -133,17 +107,11 @@
           </div>
         </article>
 
-        <article data-tags="Excel" x-data="{ open: false }"
-                 x-show="filter === 'all' || $el.dataset.tags.split(' ').includes(filter)"
-                 @click="open = !open" x-bind:style="'cursor:pointer'"
-                 class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+        <article class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
           <h3 class="font-titre text-xl font-bold">NOSE / AQM</h3>
           <p class="mt-2 text-stone-600 dark:text-stone-400">Analyse fonctionnelle d'un boîtier connecté qui mesure la qualité de l'air en extérieur.</p>
           <p class="mt-3 text-sm text-stone-500">Excel</p>
-          <button x-cloak type="button" :aria-expanded="open" aria-controls="d2"
-                  class="mt-4 text-sm font-semibold text-acc underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:text-acc-dark dark:focus-visible:ring-acc-dark"
-                  x-text="open ? 'Masquer le détail' : 'Voir le détail'">Voir le détail</button>
-          <div id="d2" x-show="open" class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
+          <div class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
             <p>Projet d'ingénierie : partir du besoin pour décrire précisément ce que doit faire l'appareil.</p>
             <ul class="mt-3 list-disc space-y-1 pl-5">
               <li>Diagrammes FAST, diagramme pieuvre, matrices de priorisation et de traçabilité.</li>
@@ -154,17 +122,11 @@
           </div>
         </article>
 
-        <article data-tags="UML" x-data="{ open: false }"
-                 x-show="filter === 'all' || $el.dataset.tags.split(' ').includes(filter)"
-                 @click="open = !open" x-bind:style="'cursor:pointer'"
-                 class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+        <article class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
           <h3 class="font-titre text-xl font-bold">Station 3W</h3>
           <p class="mt-2 text-stone-600 dark:text-stone-400">Diagramme de cas d'utilisation d'un système embarqué, construit à partir de ses modes de fonctionnement.</p>
           <p class="mt-3 text-sm text-stone-500">UML</p>
-          <button x-cloak type="button" :aria-expanded="open" aria-controls="d3"
-                  class="mt-4 text-sm font-semibold text-acc underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:text-acc-dark dark:focus-visible:ring-acc-dark"
-                  x-text="open ? 'Masquer le détail' : 'Voir le détail'">Voir le détail</button>
-          <div id="d3" x-show="open" class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
+          <div class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
             <p>Projet de système embarqué au CESI. Le système a quatre modes : standard, configuration, maintenance et économique.</p>
             <ul class="mt-3 list-disc space-y-1 pl-5">
               <li>Acteurs : membre d'équipage, technicien et horloge (qui lit les capteurs à chaque instant).</li>
@@ -175,17 +137,11 @@
           </div>
         </article>
 
-        <article data-tags="C" x-data="{ open: false }"
-                 x-show="filter === 'all' || $el.dataset.tags.split(' ').includes(filter)"
-                 @click="open = !open" x-bind:style="'cursor:pointer'"
-                 class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
+        <article class="rounded-2xl border border-stone-200 bg-white p-6 dark:border-stone-800 dark:bg-stone-900">
           <h3 class="font-titre text-xl font-bold">Algo Mesures</h3>
           <p class="mt-2 text-stone-600 dark:text-stone-400">Optimisation d'un programme en C fourni, en suivant un plan d'action en neuf étapes.</p>
           <p class="mt-3 text-sm text-stone-500">C</p>
-          <button x-cloak type="button" :aria-expanded="open" aria-controls="d4"
-                  class="mt-4 text-sm font-semibold text-acc underline-offset-4 hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-acc dark:text-acc-dark dark:focus-visible:ring-acc-dark"
-                  x-text="open ? 'Masquer le détail' : 'Voir le détail'">Voir le détail</button>
-          <div id="d4" x-show="open" class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
+          <div class="mt-4 border-t border-stone-200 pt-4 text-sm leading-relaxed dark:border-stone-800">
             <p>Problématique du CESI : comment optimiser le programme donné ?</p>
             <ul class="mt-3 list-disc space-y-1 pl-5">
               <li>Comprendre le code, l'exécuter, puis résoudre les problèmes.</li>
@@ -235,29 +191,65 @@
     <!-- Pays où j'ai étudié -->
     <section class="mt-20" aria-labelledby="afrique">
       <h2 id="afrique" class="font-titre text-2xl font-bold text-dom dark:text-dom-dark">Parcours international</h2>
-      <div class="mt-6 grid items-center gap-8 md:grid-cols-2">
-        <svg viewBox="0 0 420 460" role="img" aria-label="Carte de l'Afrique avec des épingles sur le Mali, le Niger, le Burkina Faso et la Côte d'Ivoire" class="mx-auto w-full max-w-sm">
-          <path d="M339.8,266.1L337.1,273.3L337.4,276.6L341.1,278.7L341.3,280.2L339.7,283.7L340.1,285.5L339.7,288.3L341.7,292L344.1,297.7L346.2,299L347.1,301.7L346.9,307.5L347.6,312.7L347.8,322L348.9,324.9L347.1,329.2L344.9,333.4L341.2,337.1L335.9,339.4L329.4,342.4L322.9,348.9L320.7,350L316.6,354.3L314.2,355.8L313.8,360.1L316.5,364.8L317.6,368.5L317.7,370.3L318.7,370L318.6,376.2L317.6,379.1L319,380.2L318.1,382.8L315.7,385.1L310.9,387.2L304,390.7L301.5,393L302,395.7L303.4,396.2L302.9,399.6L301.5,404.3L300.8,409.7L299.3,412.7L295.4,416L294.2,417L291.8,420.4L290.2,423.8L286.9,428.6L280.3,435.6L276.3,439.8L271.9,442.9L265.9,445.6L262.9,446L262.2,447.9L258.7,446.8L255.8,448.2L249.5,446.8L246,447.7L243.6,447.3L237.7,450.1L232.7,451.2L229.2,453.8L226.5,454L224.1,451.5L222.1,451.4L219.6,448.2L219.4,449.2L218.6,447.3L218.6,443.3L216.8,438.7L218.6,437.4L218.5,432.2L214.7,425.9L211.8,420.2L211.8,420.2L207.6,411.6L203.3,406.6L201.1,401.8L199.8,395.5L198.4,390.9L196.4,381.1L196.3,373.6L195.6,370.2L193.3,367.6L190.3,362.5L187.3,355.1L186,351.2L181.3,345.3L181,340.6L180.4,336.8L181.2,331.5L183.2,326L183.5,323.5L185.4,318.1L186.8,315.7L190.1,311.8L192,309.2L192.6,304.8L192.3,301.4L190.5,299.3L189,295.8L187.6,292.3L187.9,291.1L189.7,288.7L187.9,283.1L186.7,279.2L183.8,275.5L184.4,274.4L183.6,272.6L182,268.2L177.3,262.1L171.3,256.2L167.5,251.5L164,245.5L164.2,243.6L165.5,241.7L166.8,237.5L168,233.2L166.9,232.3L168.9,225.8L169.8,221.3L167.5,217.5L164.9,216.5L163.7,213.9L162.2,213L162.3,211.4L156.3,213.5L154.1,213.2L151.9,214.5L147.2,214.4L144.1,210.8L142.3,206.6L138.2,202.7L133.8,202.8L128.7,202.8L123.9,203.5L119.3,204.7L110.2,208.1L107,210.1L101.8,211.8L96.6,210.1L94,210.2L90,209.1L86.3,209.1L79.4,210.2L75.4,211.8L69.7,214L68.6,213.8L67,213.9L61.1,211.1L55.8,206.7L50.9,203.5L47,199.7L45.5,199.3L41.3,197L38.3,193.8L37.3,191.7L36.6,187.4L34,183.9L31.8,181.6L30.3,180.9L28.9,179.7L28.2,177.1L27.4,175.8L25.7,174.8L22.6,172.4L20.2,172L18.8,170.3L18.9,169.4L17.1,168.2L16.7,166.9L15.8,162.4L16.5,159.7L14.1,155.1L11.3,153L13.8,151.8L16.6,147.6L18,144.5L17.5,141.3L19.1,138.3L19.8,132.6L19.2,126.6L18.5,123.5L19.1,120.4L17.6,117.5L14.5,114.8L14.8,112.2L15,109.4L17.2,107.7L19.1,104.4L18.8,102.3L20.8,97.8L24,93.8L25.9,92.8L27.5,89.1L27.6,85.7L29.7,81.7L33.5,79.3L37.2,72.7L37.3,72.6L40.2,70.1L45.6,69.4L50.1,64.9L53,63.1L57.9,57.6L56.4,49.2L58.6,43.4L59.4,39.8L63.1,35.1L68.9,32L73.2,29.1L77.1,21.8L78.9,17.4L83.1,17.5L86.6,20.5L92.1,20L98.1,21.6L100.6,21.6L106.2,17.8L112.4,16.5L116.1,13.6L121.6,11.4L131.4,10.1L141,9.5L143.9,10.6L149.3,7.7L155.5,7.7L157.9,9.4L161.8,8.9L168.1,6L172.2,6.9L172,10.5L176.9,7.9L177.3,9.3L174.4,12.8L174.4,16.1L176.4,17.9L175.6,24L171.8,27.5L172.9,31.3L175.9,31.5L177.4,34.8L179.6,35.8L186.3,38.2L188.8,37.6L193.6,38.8L201.3,41.8L204,47.9L209.2,49.2L217.3,52L223.5,55.3L226.3,53.6L229.1,50.5L227.7,45.3L229.5,42L233.7,38.8L237.7,37.9L245.5,39.3L247.5,42.3L249.6,42.4L251.5,43.5L257.2,44.3L258.6,46.6L266.3,46.5L271.9,48.2L277.6,50.2L280.3,51.3L284.7,49.1L287.1,47.2L292.2,46.6L296.3,47.5L297.9,50.9L299.2,48.7L303.9,50.3L308.4,50.6L311.2,48.9L314.5,58.7L315,60.4L313.4,63.1L312.1,68.1L310.6,71.5L309.2,72.6L307.3,70.5L304.7,67.6L300.6,58.1L300,58.7L302.4,65.7L305.9,72.3L310.3,82.4L312.4,85.9L314.3,89.5L319.5,96.5L318.3,97.6L318.5,101.7L325.2,107.4L326.3,108.6L328.1,114.7L326.9,115.9L327.7,122.2L329.8,129.5L332,131L335.2,133.3L338.5,140.3L340.1,145.8L343.3,148.7L351.2,154.4L354.4,157.8L357.5,161.2L359.3,163.2L362.2,165L363.5,166.9L363.4,169.3L360.1,170.7L362.6,172.3L360.4,175.5L359.2,177.6L361.3,180.8L363.4,183.7L365.6,185.7L384.5,192.7L389.4,192.6L393.4,187.8L396,184.2L396,181.1L396,175.2L396.1,172.7L396.1,172.7L397.9,172.5L400.6,171.7L403.7,171.1L406.4,169.1L408.6,169L408.7,170.7L408.2,174.1L408.2,177.2L407,179.3L405.4,185.7L402.6,192.2L399,199.6L394.1,208.1L389.1,214.6L382.3,222.5L376.5,227.2L367.9,233L362.5,237.4L356.2,244.4L354.9,247.4L353.5,248.8L349.5,251.1L348.1,253.5L345.9,253.9L345.1,258L343.2,260.3L342.1,264.2ZM399.5,311.7L401.1,314.2L402.5,318.2L403.4,325.3L404.9,328.1L404.4,331L403.3,332.8L401.4,329.2L400.3,331L401.4,335.5L400.9,338L399.3,339.4L398.9,344.6L396.6,351.7L393.8,360.1L390.2,371.9L388,380.7L385.4,388L380.7,389.5L375.6,392.2L372.3,390.6L367.7,388.3L366.1,385L365.8,379.3L363.7,374.3L363.2,369.8L364.2,365.3L366.9,364.3L366.9,362.2L369.7,357.5L370.2,353.6L368.8,350.7L367.8,346.9L367.3,341.3L369.3,337.9L370.1,334.1L373,333.8L376.2,332.6L378.3,331.5L380.9,331.5L384.2,328L388.9,324.3L390.6,321.3L389.9,318.8L392.3,319.5L395.5,315.4L395.6,311.8L397.5,309.2Z" class="fill-stone-200 stroke-stone-400 dark:fill-stone-800 dark:stroke-stone-600" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.8" stroke-linejoin="round"/>
-          <path d="M46.6,166.6L46.9,164.7L46.4,162.4L44.2,160.7L43.1,157.3L42.8,153.6L44.7,152.5L45.7,149L47.5,148.9L51.6,150.5L54.8,149.4L57.1,149.8L57.9,148.4L81.1,148.3L82.4,144.1L81.4,143.4L78.6,117.1L75.8,90L84.7,89.9L104.2,103.7L123.7,117.3L125.1,120.1L128.7,121.9L131.3,122.9L131.4,126.8L137.8,126.2L137.8,140.2L134.7,144.2L134.2,147.9L129,148.9L121.2,149.4L119,151.5L115.3,151.8L111.6,151.8L110.2,150.6L107,151.5L101.6,154L100.5,155.8L96,158.5L95.2,160L92.8,161.2L90,160.5L88.4,161.9L87.6,166L83,170.9L83.1,172.9L81.5,175.4L81.9,178.8L79.5,179.7L78.2,180.4L77.3,177.9L75.6,178.5L74.6,178.4L73.6,180.1L69.1,180.1L67.5,179.2L66.7,179.7L65,178L65.3,176.3L64.5,175.6L63.3,176.2L63.5,174.3L64.7,172.8L62.4,170.3L61.7,168.7L60.4,167.3L59.2,167.2L57.8,168L56,168.8L54.4,170.1L51.9,169.6L50.3,168.1L49.4,167.9L47.8,168.7L46.9,168.7Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
-          <path d="M199,103.2L200.4,112.9L202.6,114.5L202.7,116.5L205.1,118.6L203.8,121.3L201.6,133.7L201.3,141.6L193.9,147.2L191.4,155.1L193.8,157.3L193.8,161.2L197.5,161.3L196.9,164.1L195.3,164.4L195.1,166.3L194,166.4L190.1,160L188.8,159.7L184.3,163L179.8,161.3L176.7,161L175,161.8L171.6,161.6L168.2,164.1L165.3,164.3L158.3,161.2L155.5,162.7L152.6,162.6L150.4,160.3L144.6,158.1L138.4,158.8L136.9,160.1L136.1,163.5L134.4,165.9L134,171.2L129.6,167.8L127.5,167.8L125.6,169.5L125.7,165.5L119.1,164.1L118.9,161.3L115.6,157.4L114.9,154.7L115.3,151.8L119,151.5L121.2,149.4L129,148.9L134.2,147.9L134.7,144.2L137.8,140.2L137.8,126.2L146,123.5L162.7,111.3L182.5,99.4L191.7,102.1L194.9,105.6Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
-          <path d="M81.9,178.8L81.5,175.4L83.1,172.9L83,170.9L87.6,166L88.4,161.9L90,160.5L92.8,161.2L95.2,160L96,158.5L100.5,155.8L101.6,154L107,151.5L110.2,150.6L111.6,151.8L115.3,151.8L114.9,154.7L115.6,157.4L118.9,161.3L119.1,164.1L125.7,165.5L125.6,169.5L124.3,171.3L121.5,171.8L120.3,174.4L118.3,175.1L113.3,175L110.6,174.5L108.7,175.5L106.2,175L96.2,175.3L96,178.6L96.8,183L92.8,181.5L90.1,181.8L88.1,183.2L85.5,182L84.5,180.1Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
-          <path d="M66.7,179.7L67.5,179.2L69.1,180.1L73.6,180.1L74.6,178.4L75.6,178.5L77.3,177.9L78.2,180.4L79.5,179.7L81.9,178.8L84.5,180.1L85.5,182L88.1,183.2L90.1,181.8L92.8,181.5L96.8,183L98.3,191.4L95.9,196.3L94.4,202.8L96.9,207.9L96.6,210.1L94,210.2L90,209.1L86.3,209.1L79.4,210.2L75.4,211.8L69.7,214L68.6,213.8L69,209L69.6,208.3L69.4,206L66.9,203.6L65.1,203.2L63.4,201.6L64.7,199L64.1,196.2L64.4,194.5L65.3,194.5L65.6,191.9L65.2,190.8L65.7,190L67.9,189.3L66.4,184.6L65.1,182.2L65.6,180.2Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
-          <g transform="translate(93 137)"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/><circle cy="-15" r="3" class="fill-white dark:fill-stone-950" fill="#fff"/><text x="0" y="-24" text-anchor="middle" class="fill-stone-700 dark:fill-stone-300" font-size="12" font-weight="600">Mali</text></g>
-          <g transform="translate(167 137)"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/><circle cy="-15" r="3" class="fill-white dark:fill-stone-950" fill="#fff"/><text x="12" y="-8" text-anchor="start" class="fill-stone-700 dark:fill-stone-300" font-size="12" font-weight="600">Niger</text></g>
-          <g transform="translate(103 167)"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/><circle cy="-15" r="3" class="fill-white dark:fill-stone-950" fill="#fff"/><text x="12" y="-8" text-anchor="start" class="fill-stone-700 dark:fill-stone-300" font-size="12" font-weight="600">Burkina Faso</text></g>
-          <g transform="translate(81 195)"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/><circle cy="-15" r="3" class="fill-white dark:fill-stone-950" fill="#fff"/><text x="12" y="-8" text-anchor="start" class="fill-stone-700 dark:fill-stone-300" font-size="12" font-weight="600">Côte d'Ivoire</text></g>
-        </svg>
+
+      <!-- Définition de l'épingle, utilisée par toutes les cartes -->
+      <svg width="0" height="0" class="absolute" aria-hidden="true"><defs><g id="pin"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z"/><circle cy="-15" r="3" class="fill-white dark:fill-stone-950" fill="#fff"/></g></defs></svg>
+
+      <div class="mt-6 grid gap-8 md:grid-cols-3">
+        <figure>
+          <svg viewBox="0 0 420 460" role="img" aria-label="Carte de l'Afrique : Mali, Niger, Burkina Faso et Côte d'Ivoire en bleu ; Bénin, Ghana et Sénégal en violet" class="mx-auto w-full max-w-xs">
+          <path d="M340,266L337,273L337,277L341,279L341,280L340,284L340,286L340,288L342,292L344,298L346,299L347,302L347,308L348,313L348,322L349,325L347,329L345,333L341,337L336,339L329,342L323,349L321,350L317,354L314,356L314,360L316,365L318,368L318,370L319,370L319,376L318,379L319,380L318,383L316,385L311,387L304,391L301,393L302,396L303,396L303,400L301,404L301,410L299,413L295,416L294,417L292,420L290,424L287,429L280,436L276,440L272,443L266,446L263,446L262,448L259,447L256,448L250,447L246,448L244,447L238,450L233,451L229,454L227,454L224,452L222,451L220,448L219,449L219,447L219,443L217,439L219,437L218,432L215,426L212,420L212,420L208,412L203,407L201,402L200,396L198,391L196,381L196,374L196,370L193,368L190,362L187,355L186,351L181,345L181,341L180,337L181,332L183,326L184,323L185,318L187,316L190,312L192,309L193,305L192,301L191,299L189,296L188,292L188,291L190,289L188,283L187,279L184,276L184,274L184,273L182,268L177,262L171,256L168,251L164,245L164,244L165,242L167,238L168,233L167,232L169,226L170,221L168,217L165,216L164,214L162,213L162,211L156,214L154,213L152,215L147,214L144,211L142,207L138,203L134,203L129,203L124,203L119,205L110,208L107,210L102,212L97,210L94,210L90,209L86,209L79,210L75,212L70,214L69,214L67,214L61,211L56,207L51,203L47,200L45,199L41,197L38,194L37,192L37,187L34,184L32,182L30,181L29,180L28,177L27,176L26,175L23,172L20,172L19,170L19,169L17,168L17,167L16,162L17,160L14,155L11,153L14,152L17,148L18,145L17,141L19,138L20,133L19,127L18,124L19,120L18,118L15,115L15,112L15,109L17,108L19,104L19,102L21,98L24,94L26,93L27,89L28,86L30,82L34,79L37,73L37,73L40,70L46,69L50,65L53,63L58,58L56,49L59,43L59,40L63,35L69,32L73,29L77,22L79,17L83,17L87,20L92,20L98,22L101,22L106,18L112,17L116,14L122,11L131,10L141,10L144,11L149,8L156,8L158,9L162,9L168,6L172,7L172,11L177,8L177,9L174,13L174,16L176,18L176,24L172,28L173,31L176,31L177,35L180,36L186,38L189,38L194,39L201,42L204,48L209,49L217,52L223,55L226,54L229,51L228,45L230,42L234,39L238,38L245,39L247,42L250,42L251,44L257,44L259,47L266,46L272,48L278,50L280,51L285,49L287,47L292,47L296,48L298,51L299,49L304,50L308,51L311,49L314,59L315,60L313,63L312,68L311,72L309,73L307,71L305,68L301,58L300,59L302,66L306,72L310,82L312,86L314,90L319,97L318,98L319,102L325,107L326,109L328,115L327,116L328,122L330,130L332,131L335,133L339,140L340,146L343,149L351,154L354,158L358,161L359,163L362,165L364,167L363,169L360,171L363,172L360,176L359,178L361,181L363,184L366,186L385,193L389,193L393,188L396,184L396,181L396,175L396,173L396,173L398,173L401,172L404,171L406,169L409,169L409,171L408,174L408,177L407,179L405,186L403,192L399,200L394,208L389,215L382,223L377,227L368,233L363,237L356,244L355,247L354,249L349,251L348,254L346,254L345,258L343,260L342,264ZM400,312L401,314L403,318L403,325L405,328L404,331L403,333L401,329L400,331L401,335L401,338L399,339L399,345L397,352L394,360L390,372L388,381L385,388L381,390L376,392L372,391L368,388L366,385L366,379L364,374L363,370L364,365L367,364L367,362L370,358L370,354L369,351L368,347L367,341L369,338L370,334L373,334L376,333L378,332L381,331L384,328L389,324L391,321L390,319L392,320L395,315L396,312L398,309Z" class="fill-stone-200 stroke-stone-400 dark:fill-stone-800 dark:stroke-stone-600" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.8" stroke-linejoin="round"/>
+          <path d="M47,167L47,165L46,162L44,161L43,157L43,154L45,153L46,149L48,149L52,151L55,149L57,150L58,148L81,148L82,144L81,143L79,117L76,90L85,90L104,104L124,117L125,120L129,122L131,123L131,127L138,126L138,140L135,144L134,148L129,149L121,149L119,152L115,152L112,152L110,151L107,151L102,154L100,156L96,159L95,160L93,161L90,160L88,162L88,166L83,171L83,173L82,175L82,179L80,180L78,180L77,178L76,179L75,178L74,180L69,180L67,179L67,180L65,178L65,176L65,176L63,176L64,174L65,173L62,170L62,169L60,167L59,167L58,168L56,169L54,170L52,170L50,168L49,168L48,169L47,169Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
+          <path d="M199,103L200,113L203,115L203,117L205,119L204,121L202,134L201,142L194,147L191,155L194,157L194,161L198,161L197,164L195,164L195,166L194,166L190,160L189,160L184,163L180,161L177,161L175,162L172,162L168,164L165,164L158,161L156,163L153,163L150,160L145,158L138,159L137,160L136,164L134,166L134,171L130,168L128,168L126,170L126,165L119,164L119,161L116,157L115,155L115,152L119,152L121,149L129,149L134,148L135,144L138,140L138,126L146,123L163,111L183,99L192,102L195,106Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
+          <path d="M82,179L82,175L83,173L83,171L88,166L88,162L90,160L93,161L95,160L96,159L100,156L102,154L107,151L110,151L112,152L115,152L115,155L116,157L119,161L119,164L126,165L126,170L124,171L122,172L120,174L118,175L113,175L111,174L109,175L106,175L96,175L96,179L97,183L93,182L90,182L88,183L86,182L85,180Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
+          <path d="M67,180L67,179L69,180L74,180L75,178L76,179L77,178L78,180L80,180L82,179L85,180L86,182L88,183L90,182L93,182L97,183L98,191L96,196L94,203L97,208L97,210L94,210L90,209L86,209L79,210L75,212L70,214L69,214L69,209L70,208L69,206L67,204L65,203L63,202L65,199L64,196L64,194L65,194L66,192L65,191L66,190L68,189L66,185L65,182L66,180Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
+          <path d="M129,203L124,203L123,199L123,186L122,185L121,182L119,180L118,178L118,175L120,174L122,172L124,171L126,170L128,168L130,168L134,171L134,173L135,177L134,179L135,181L132,184L130,186L129,190L129,193Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <path d="M113,175L113,177L115,180L115,184L116,189L117,191L116,196L116,199L118,203L119,205L110,208L107,210L102,212L97,210L97,208L94,203L96,196L98,191L97,183L96,179L96,175L106,175L109,175L111,174Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <path d="M17,160L14,155L11,153L14,152L17,148L18,145L20,143L23,143L26,142L29,142L32,144L35,145L39,150L43,154L43,157L44,161L46,162L47,165L47,167L46,167L43,166L42,167L41,167L37,166L34,166L23,165L22,166L20,166L17,167L16,162L21,162L22,162L23,162L26,160L28,161L31,162L33,160L32,159L30,160L28,160L26,158L24,158L23,160Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <use href="#pin" transform="translate(93 137) scale(.75)" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"><title>Mali</title></use>
+          <use href="#pin" transform="translate(167 137) scale(.75)" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"><title>Niger</title></use>
+          <use href="#pin" transform="translate(103 167) scale(.75)" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"><title>Burkina Faso</title></use>
+          <use href="#pin" transform="translate(81 195) scale(.75)" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"><title>Côte d'Ivoire</title></use>
+          <use href="#pin" transform="translate(127 183) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Bénin</title></use>
+          <use href="#pin" transform="translate(106 193) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Ghana</title></use>
+          <use href="#pin" transform="translate(29 155) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Sénégal</title></use>
+          </svg>
+          <figcaption class="mt-2 text-center text-xs text-stone-500">Afrique</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 420 314" role="img" aria-label="Carte de l'Europe : France en bleu ; Espagne, Italie, Turquie et Monaco en violet" class="mx-auto w-full max-w-xs">
+          <path d="M162,59L162,64L169,67L169,72L177,69L181,66L189,71L192,75L197,71L209,65L218,61L226,63L226,66L233,66L242,68L256,68L255,64L256,61L253,59L245,57L244,46L244,36L247,27L254,22L260,33L266,32L268,22L274,19L277,21L283,26L289,26L293,29L294,36L296,44L304,47L305,50L309,49L316,52L317,58L315,61L320,70L323,72L322,74L327,77L329,80L326,83L321,82L319,83L321,87L323,95L325,96L327,93L329,93L337,92L342,99L340,101L341,105L346,106L349,111L349,113L358,117L364,115L369,121L373,121L384,124L384,128L381,133L382,140L381,143L374,144L370,147L370,152L364,153L359,156L352,157L346,161L346,167L345,166L344,164L342,164L337,161L335,164L334,163L322,160L322,156L315,158L312,163L307,171L307,174L303,176L301,175L299,188L295,192L292,199L295,205L296,209L302,212L301,214L292,215L289,218L283,223L280,218L280,216L276,216L272,215L263,218L268,223L265,225L260,225L257,220L255,222L257,228L260,232L258,234L262,238L265,241L266,246L259,244L261,249L256,250L259,258L254,258L248,254L245,247L244,240L241,236L237,231L237,228L236,227L235,225L231,222L231,217L231,211L232,208L231,206L230,205L228,202L224,200L217,196L213,193L206,190L200,182L202,181L198,177L198,173L193,172L191,176L189,173L189,169L189,169L191,168L185,167L179,170L180,175L179,178L181,184L188,189L192,197L200,205L206,205L208,207L205,209L212,213L218,216L224,221L225,223L223,226L219,222L213,220L210,226L215,230L214,235L211,235L207,243L204,244L204,241L206,236L207,234L204,229L202,224L199,223L197,218L192,217L189,213L183,212L178,208L171,201L166,195L164,185L160,184L154,181L151,182L146,187L143,188L137,193L122,191L111,194L110,200L111,206L104,212L94,214L94,218L89,223L86,231L89,236L85,241L83,247L78,248L73,256L63,256L56,256L52,259L49,262L45,261L42,258L40,253L33,252L31,254L27,253L23,254L24,247L23,241L20,240L18,236L19,230L22,227L22,223L24,217L24,213L22,209L22,206L22,199L19,195L30,187L39,189L49,189L56,191L62,190L74,191L78,184L80,164L72,152L67,147L55,143L55,135L64,132L76,135L74,122L81,127L98,118L101,109L107,106L113,104L117,101L123,83L133,78L139,78L141,76L147,75L148,78L153,72L152,67L151,60L148,52L148,39L149,35L151,31L158,30L160,27L166,23L166,30L164,34L165,38L169,40L167,45L165,44L160,53ZM153,199L158,195L159,203L156,211L153,209L151,202ZM18,314L16,304L19,297L20,292L25,286L32,282L37,279L42,269L45,264L50,264L55,268L62,267L69,269L72,269L80,264L87,263L92,259L99,256L112,255L124,254L128,255L135,252L142,251L145,254L150,253L158,249L164,250L163,255L170,252L170,253L167,258L166,262L169,264L168,272L163,277L165,282L168,282L170,286L173,287L182,290L185,290L191,291L201,295L204,303L211,304L221,308L229,312L233,310L236,306L234,299L237,295L242,291L247,290L257,292L260,296L262,296L265,297L272,298L274,301L284,301L291,303L298,306L301,307L307,304L310,302L317,301L322,302L324,306L326,304L332,306L337,306L341,304L343,301L343,301L344,297L346,290L347,288L347,288L350,281L354,274L354,274L353,267L355,263L352,259L355,256L350,257L344,254L339,260L328,261L322,256L314,256L312,259L307,260L300,256L292,256L288,247L282,241L286,234L281,229L289,220L301,220L304,212L318,214L327,207L335,205L348,204L360,211L371,215L380,214L386,214L395,209L396,205L394,198L390,195L386,193L383,190L384,189L390,191L401,193L411,197L412,199L417,198L420,199L420,314ZM222,0L220,6L212,9L210,32L205,45L197,43L192,54L184,54L181,42L175,27L170,7L170,7L172,0L222,0ZM282,268L281,271L271,271L271,270L262,268L263,264L267,267L273,267L278,268L278,269ZM43,73L44,82L38,93L25,100L15,98L21,86L17,73L27,63L33,57L39,57L47,65ZM197,242L203,241L200,248L201,251L200,256L194,253L190,252L180,247L181,242L190,243ZM153,216L156,213L161,219L160,232L156,232L153,235L151,232L150,221L149,215ZM180,45L182,51L178,62L170,54L169,49ZM66,79L66,79L67,72L62,64L62,64L53,62L51,58L54,53L51,49L47,55L47,42L43,36L46,22L52,10L57,11L66,10L58,25L66,23L74,23L72,34L65,46L73,47L74,49L80,64L85,66L90,80L92,85L101,87L100,95L96,99L99,105L92,111L83,111L70,114L67,112L62,117L55,116L50,120L46,118L57,106L63,103L63,103L52,101L50,96L57,93L53,86L55,78ZM330,270L330,269L331,267L336,267L343,265L338,269L339,270L339,271L331,275L328,273L326,270Z" class="fill-stone-200 stroke-stone-400 dark:fill-stone-800 dark:stroke-stone-600" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.8" stroke-linejoin="round"/>
+          <path d="M134,126L137,129L148,131L144,138L143,146L141,148L138,147L138,150L133,156L133,161L136,159L139,164L139,167L141,171L138,174L140,182L144,183L143,188L137,193L122,191L111,194L110,200L102,201L94,197L91,199L77,194L74,191L78,184L80,164L72,152L67,147L55,143L55,135L64,132L76,135L74,122L81,127L98,118L101,109L107,106L108,110L111,111L115,115L120,121L124,120L130,125L132,126Z" class="fill-dom/25 stroke-dom dark:fill-dom-dark/25 dark:stroke-dom-dark" fill="#c7d2fe" stroke="#1e3a8a" stroke-width="1"/>
+          <path d="M33,252L33,249L36,245L37,243L34,240L36,234L33,228L36,227L37,223L38,221L38,214L41,211L39,206L35,206L34,207L29,207L28,202L25,203L22,206L22,199L19,195L30,187L39,189L49,189L56,191L62,190L74,191L77,194L91,199L94,197L102,201L110,200L111,206L104,212L94,214L94,218L89,223L86,231L89,236L85,241L83,247L78,248L73,256L63,256L56,256L52,259L49,262L45,261L42,258L40,253Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <path d="M165,154L170,156L171,154L178,152L180,156L190,158L189,164L191,168L185,167L179,170L180,175L179,178L181,184L188,189L192,197L200,205L206,205L208,207L205,209L212,213L218,216L224,221L225,223L223,226L219,222L213,220L210,226L215,230L214,235L211,235L207,243L204,244L204,241L206,236L207,234L204,229L202,224L199,223L197,218L192,217L189,213L183,212L178,208L171,201L166,195L164,185L160,184L154,181L151,182L146,187L143,188L144,183L140,182L138,174L141,171L139,167L139,164L142,166L146,166L150,162L151,164L154,163L156,159L162,160L165,159Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <path d="M418,251L415,253L412,250L404,249L400,250L392,252L388,252L380,255L374,255L370,253L362,256L359,254L359,259L357,261L355,263L352,259L355,256L350,257L344,254L339,260L328,261L322,256L314,256L312,259L307,260L300,256L292,256L288,247L282,241L286,234L281,229L289,220L301,220L304,212L318,214L327,207L335,205L348,204L360,211L371,215L380,214L386,214L395,209L402,209L410,214L411,217L410,222L416,224L418,227L413,230L416,241L414,244Z" class="fill-acc/25 stroke-acc dark:fill-acc-dark/25 dark:stroke-acc-dark" fill="#ddd6fe" stroke="#6d28d9" stroke-width="1"/>
+          <use href="#pin" transform="translate(107 157) scale(.75)" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"><title>France</title></use>
+          <use href="#pin" transform="translate(61 222) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Espagne</title></use>
+          <use href="#pin" transform="translate(183 203) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Italie</title></use>
+          <use href="#pin" transform="translate(346 233) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Turquie</title></use>
+          <use href="#pin" transform="translate(143 187) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Monaco</title></use>
+          </svg>
+          <figcaption class="mt-2 text-center text-xs text-stone-500">Europe</figcaption>
+        </figure>
+        <figure>
+          <svg viewBox="0 0 420 267" role="img" aria-label="Carte des États-Unis : New York, Philadelphie et Los Angeles en violet" class="mx-auto w-full max-w-xs">
+          <path d="M36,0L55,5L74,10L80,11L101,15L120,18L140,21L160,23L183,25L206,25L220,25L220,22L223,21L224,27L226,29L231,29L238,30L244,33L250,32L258,34L261,34L266,30L273,33L280,37L286,39L292,42L293,45L295,45L294,46L296,46L297,45L298,48L300,49L302,49L303,50L302,52L310,55L313,64L316,73L314,79L312,85L311,89L311,90L312,91L314,93L316,92L324,86L331,83L340,76L340,75L339,72L337,70L340,68L347,67L354,66L355,61L356,60L362,52L365,49L375,46L388,43L388,41L390,40L393,37L394,32L394,24L397,15L400,17L404,14L408,16L412,29L418,33L420,36L414,43L408,49L401,54L399,60L399,63L400,68L404,73L407,72L405,69L408,70L408,73L404,76L400,77L395,80L392,82L388,83L383,87L393,83L396,84L386,90L381,91L381,90L380,93L382,93L382,100L378,109L377,107L375,107L372,105L375,110L377,111L378,115L377,120L374,128L373,128L374,121L369,118L367,110L366,114L369,120L364,120L370,122L372,131L374,132L376,135L379,145L376,153L368,158L364,165L360,166L356,171L356,174L348,182L344,188L341,195L340,202L343,209L347,217L352,223L353,228L359,238L360,245L360,249L359,256L356,257L352,257L350,253L346,251L340,243L334,236L333,232L333,225L330,220L322,213L319,212L310,217L309,217L304,213L298,211L289,213L281,212L274,214L271,216L272,218L273,222L275,224L273,226L270,224L266,226L260,226L253,221L245,223L239,221L234,222L226,224L218,232L209,236L204,241L202,246L202,252L202,257L204,261L200,261L194,259L187,255L184,251L183,243L178,237L175,231L171,224L165,220L158,220L151,227L144,224L140,220L138,214L136,209L131,204L127,200L124,196L110,194L109,199L102,198L85,195L67,185L56,178L57,176L46,175L36,173L36,168L32,161L29,159L28,156L24,154L22,151L14,148L13,146L13,140L8,128L6,113L7,110L4,106L1,96L2,88L0,81L4,74L6,65L6,57L12,49L16,40L19,32L22,18L22,9L22,4L23,3L32,9L32,19L35,17L36,9Z" class="fill-stone-200 stroke-stone-400 dark:fill-stone-800 dark:stroke-stone-600" fill="#e7e5e4" stroke="#a8a29e" stroke-width="0.8" stroke-linejoin="round"/>
+          <use href="#pin" transform="translate(381 90) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>New York</title></use>
+          <use href="#pin" transform="translate(374 100) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Philadelphie</title></use>
+          <use href="#pin" transform="translate(31 156) scale(.75)" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"><title>Los Angeles</title></use>
+          </svg>
+          <figcaption class="mt-2 text-center text-xs text-stone-500">États-Unis</figcaption>
+        </figure>
+      </div>
+
+      <div class="mt-8 grid gap-6 text-sm sm:grid-cols-2">
         <div>
-          <p class="flex items-center gap-2 text-sm font-semibold">
-            <svg viewBox="-9 -17 18 18" width="16" height="16" aria-hidden="true"><path d="M0 0C-5-7-8-11-8-15A8 8 0 1 1 8-15C8-11 5-7 0 0Z" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/></svg>
-            Pays où j'ai étudié
-          </p>
-          <ul class="mt-3 space-y-1 text-sm text-stone-600 dark:text-stone-400">
-            <li>Mali</li>
-            <li>Niger</li>
-            <li>Burkina Faso</li>
-            <li>Côte d'Ivoire</li>
-          </ul>
+          <p class="flex items-center gap-2 font-semibold"><svg viewBox="-9 -17 18 18" width="16" height="16" aria-hidden="true"><use href="#pin" class="fill-dom dark:fill-dom-dark" fill="#1e3a8a"/></svg> Pays où j'ai étudié</p>
+          <p class="mt-2 text-stone-600 dark:text-stone-400">Mali, Niger, Burkina Faso, Côte d'Ivoire, France</p>
+        </div>
+        <div>
+          <p class="flex items-center gap-2 font-semibold"><svg viewBox="-9 -17 18 18" width="16" height="16" aria-hidden="true"><use href="#pin" class="fill-acc dark:fill-acc-dark" fill="#6d28d9"/></svg> Pays et villes visités</p>
+          <p class="mt-2 text-stone-600 dark:text-stone-400">Bénin, Ghana, Sénégal, Italie, Espagne, Turquie, Monaco, New York, Los Angeles, Philadelphie</p>
         </div>
       </div>
     </section>
